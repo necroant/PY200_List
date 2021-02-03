@@ -151,7 +151,3 @@ class LinkedList:
 
 
 if __name__ == '__main__':
-    shit = [3]
-    sux = ["cocks"]
-    print(shit)
-    print(sux)
