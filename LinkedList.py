@@ -2,20 +2,21 @@ from typing import Any, Sequence, Optional
 
 
 class LinkedList:
+    # noinspection PyUnresolvedReferences
     class Node:
         """
         Внутренний класс, класса LinkedList.
         Пользователь напрямую не работает с узлами списка, узлами оперирует список.
         """
 
-        def __init__(self, value: Any, next_: Optional['Node'] = None):
+        def __init__(self, value: Any, next_node: Optional["Node"] = None):
             """
             Создаем новый узел для односвязного списка
             :param value: Любое значение, которое помещено в узел
-            :param next_: следующий узел, если он есть
+            :param next_node: следующий узел, если он есть
             """
             self.value = value
-            self.next = next_  # Вызывается сеттер
+            self.next = next_node  # Вызывается сеттер
 
         @property
         def next(self):
@@ -23,7 +24,7 @@ class LinkedList:
             return self.__next
 
         @next.setter
-        def next(self, next_: Optional['Node']):
+        def next(self, next_: Optional["Node"]):
             """Setter проверяет и устанавливает следующий узел связного списка"""
             if not isinstance(next_, self.__class__) and next_ is not None:
                 msg = f"Устанавливаемое значение должно быть экземпляром класса {self.__class__.__name__} " \
@@ -44,9 +45,12 @@ class LinkedList:
         self.len_ = 0
         self.head = None  # Node
 
-        if data:  # ToDo Проверить, что объект итерируемый. Метод self.is_iterable
-            for value in data:
-                self.append(value)
+        if data:
+            if self.is_iterable(data):
+                for value in data:
+                    self.append(value)
+            else:
+                self.append(data)
 
     def __str__(self):
         """Вызывается функциями str, print и format. Возвращает строковое представление объекта."""
@@ -109,11 +113,15 @@ class LinkedList:
     def sort(self) -> None:
         ...
 
-    def is_iterable(self, data) -> bool:
+    @staticmethod
+    def is_iterable(data) -> bool:
         """Метод для проверки является ли объект итерируемым"""
-        ...
+        try:
+            _ = (e for e in data)
+            return True
+        except TypeError as te:
+            return False
 
 
 if __name__ == '__main__':
-    # ll = LinkedList([1, 2, 3, 4])
-    # print(ll)
+    ...
