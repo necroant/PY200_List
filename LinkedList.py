@@ -115,9 +115,12 @@ class LinkedList:
             self.tail = tail
         self._len += 1
 
-
     def to_list(self) -> list:
-        ...
+        output = [self.head]
+        if self._len > 0:
+            for _ in range(self._len):
+                output.append(self.next)
+        return output
 
     def insert(self, index: int, value: Any) -> None:
         ...
