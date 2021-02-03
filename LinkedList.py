@@ -76,11 +76,30 @@ class LinkedList:
     def __len__(self):
         return self._len
 
-    def __getitem__(self, item: int) -> Any:
-        ...
+    def __getitem__(self, index: int) -> Any:
+        if index <= self._len:
+            item = self.__find_item(index)
+            return item
+        else:
+            raise IndexError(f"Index {index} out of bounds")
 
-    def __setitem__(self, key, value):
-        ...
+    def __setitem__(self, index, value):
+        if index <= self._len:
+            item = self.__find_item(index)
+            item.value = value
+        else:
+            raise IndexError(f"Index {index} out of bounds")
+
+    def __find_item(self, index: int) -> Any:
+        current_node = self.head
+        if not index == 0:
+            for _ in range(index):
+                current_node = current_node.next
+        return current_node
+
+    @staticmethod
+    def __linked_nodes(left: Node, right: Optional[Node]) -> None:
+        left.next = right
 
     def append(self, value: Any):
         """Добавление элемента в конец связного списка"""
@@ -96,9 +115,6 @@ class LinkedList:
             self.tail = tail
         self._len += 1
 
-    @staticmethod
-    def __linked_nodes(left: Node, right: Optional[Node]) -> None:
-        left.next = right
 
     def to_list(self) -> list:
         ...
