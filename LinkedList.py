@@ -118,8 +118,11 @@ class LinkedList:
     def to_list(self) -> list:
         output = [self.head]
         if self._len > 0:
+            current = self.head
             for _ in range(self._len):
-                output.append(self.next)
+                current = current.next
+                output.append(current)
+
         return output
 
     def insert(self, index: int, value: Any) -> None:
@@ -148,4 +151,7 @@ class LinkedList:
 
 
 if __name__ == '__main__':
-    ...
+    shit = [3]
+    sux = ["cocks"]
+    print(shit)
+    print(sux)
