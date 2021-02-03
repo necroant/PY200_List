@@ -67,10 +67,13 @@ class LinkedList:
 
     def __repr__(self):
         """Метод должен возвращать строку, показывающую, как может быть создан экземпляр."""
-        return ""
+        if self.head is None:
+            return f"LinkedList({self.head})"
+        else:
+            return f"LinkedList({self.head},{self.head.next})"
 
     def __len__(self):
-        ...
+        return self.len_
 
     def __getitem__(self, item: int) -> Any:
         ...
@@ -119,7 +122,7 @@ class LinkedList:
         try:
             _ = (e for e in data)
             return True
-        except TypeError as te:
+        except TypeError:
             return False
 
 
