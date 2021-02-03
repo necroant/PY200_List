@@ -42,8 +42,9 @@ class LinkedList:
 
     def __init__(self, data: Sequence = None):
         """Конструктор связного списка"""
-        self.len_ = 0
+        self._len = 0
         self.head = None  # Node
+        self.tail = None
 
         if data:
             if self.is_iterable(data):
@@ -57,7 +58,7 @@ class LinkedList:
         result = []
         current_node = self.head
 
-        for _ in range(self.len_ - 1):
+        for _ in range(self._len - 1):
             result.append(current_node.value)
             current_node = current_node.next
 
@@ -73,7 +74,7 @@ class LinkedList:
             return f"LinkedList({self.head},{self.head.next})"
 
     def __len__(self):
-        return self.len_
+        return self._len
 
     def __getitem__(self, item: int) -> Any:
         ...
@@ -86,13 +87,14 @@ class LinkedList:
         append_node = self.Node(value)
         if self.head is None:
             self.head = append_node
+            self.tail = None
         else:
-            tail = self.head  # ToDo Завести атрибут self.tail, который будет хранить последний узел
-            for _ in range(self.len_ - 1):
+            tail = self.head
+            for _ in range(self._len - 1):
                 tail = tail.next
             self.__linked_nodes(tail, append_node)
-
-        self.len_ += 1
+            self.tail = tail
+        self._len += 1
 
     @staticmethod
     def __linked_nodes(left: Node, right: Optional[Node]) -> None:
